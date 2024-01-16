@@ -1,58 +1,3 @@
-// // Sample product data
-// const products = [
-//   { id: 1, name: "Wrist Watch", price: 80 },
-//   { id: 2, name: "Nike Shoe", price: 110 },
-//   { id: 3, name: "Jean Trouser", price: 105 },
-//   { id: 4, name: "Mac book pro", price: 1005 },
-//   { id: 5, name: "iphone 12", price: 705 },
-//   { id: 6, name: "S22 ultra", price: 905 },
-// ];
-
-// // Shopping cart
-// const cart = [];
-
-// // Function to display products
-// function availableProducts() {
-//   console.log("Products available:");
-//   products.forEach((product) => {
-//     console.log(`${product.id}. ${product.name} - $${product.price}`);
-//   });
-// }
-
-// // Function to add a product to the cart
-// function addToCart(productId) {
-//   const selectedProduct = products.find((product) => product.id === productId);
-//   if (selectedProduct) {
-//     cart.push(selectedProduct);
-//     console.log(`${selectedProduct.name} added to cart.`);
-//   } else {
-//     console.log("Product not found.");
-//   }
-// }
-
-// // Function to display the cart
-// function displayCart() {
-//   console.log("Shopping Cart:");
-//   cart.forEach((item) => {
-//     console.log(`${item.name} - $${item.price}`);
-//   });
-
-//   const total = cart.reduce((sum, item) => sum + item.price, 0);
-//   console.log(`Total: $${total}`);
-// }
-
-// // Example: Display products and add to cart
-// availableProducts();
-// addToCart(1);
-// addToCart(2);
-
-// displayCart();
-
-
-
-
-
-
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -62,9 +7,12 @@ const rl = readline.createInterface({
 
 // Define a list of items and their prices
 const items = [
-  { name: 'Item 1', price: 10.99 },
-  { name: 'Item 2', price: 20.49 },
-  { name: 'Item 3', price: 5.99 }
+  { name: 'T.shirt', price: 10.99 },
+  { name: 'Jean Trouser', price: 20.49 },
+  { name: 'Dell laptop', price: 399.99 },
+  { name: 'Mac book pro', price: 599.99 },
+  { name: 'Mac book air', price: 449.99 },
+  { name: 'Samsung s22 ultra', price: 549.99 }
 ];
 
 // Function to display the list of items
@@ -84,7 +32,27 @@ function askQuestion(question) {
   });
 }
 
+// Function to get the greeting based on the current time
+function getGreeting() {
+  const hour = new Date().getHours();
+
+  if (hour >= 5 && hour < 12) {
+    return 'Good morning';
+  } else if (hour >= 12 && hour < 18) {
+    return 'Good afternoon';
+  } else {
+    return 'Good evening';
+  }
+}
+
 async function main() {
+  // Prompt the user for their name
+  const userName = await askQuestion('What is your name? ');
+
+  // Display greeting based on the current time
+  const greeting = getGreeting();
+  console.log(`${greeting}, ${userName}! Welcome to the shopping experience.`);
+
   let selectedItems = [];
   let total = 0;
 
@@ -120,14 +88,14 @@ async function main() {
   }
 
   // Display the selected items
-  console.log('Selected items:');
+  console.log('\nSelected items:');
   selectedItems.forEach((item, index) => {
     console.log(`${index + 1}. ${item.name} - $${item.price.toFixed(2)}`);
     total += item.price; // Add the item's price to the total
   });
 
   // Display the total
-  console.log(`Your total is: $${total.toFixed(2)}`);
+  console.log(`\nYour total is: $${total.toFixed(2)}`);
 
   // Close the readline interface
   rl.close();
