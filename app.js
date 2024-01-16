@@ -12,7 +12,11 @@ const items = [
   { name: "Dell laptop", price: 399.99 },
   { name: "Mac book pro", price: 599.99 },
   { name: "Mac book air", price: 449.99 },
-  { name: "Samsung s22 ultra", price: 549.99 },
+  { name: "Samsung TV", price: 549.99 },
+  { name: "ipad", price: 549.99 },
+  { name: "iphone Xs", price: 549.99 },
+  { name: "hp elitebook", price: 549.99 },
+  { name: "hp envy", price: 549.99 },
 ];
 
 // Function to display the list of items
@@ -51,8 +55,8 @@ async function main() {
 
   // Display greeting based on the current time
   const greeting = getGreeting();
-  console.log(`${greeting}, ${userName}!`);
-  console.log(`Welcome to AromeUkpoju's shopping app.`);
+  console.log(`\x1b[31m${greeting}, ${userName}!`);
+  console.log(`\x1b[36mWelcome to AromeUkpoju's shopping app.`);
 
   let selectedItems = [];
   let total = 0;
@@ -107,7 +111,7 @@ async function main() {
   });
 
   // Display the total
-  console.log(`\nYour total is: $${total.toFixed(2)}`);
+  console.log(`\nYour total cost is: $${total.toFixed(2)}`);
 
   // Ask for payment
   const paymentConfirmation = await askQuestion(
