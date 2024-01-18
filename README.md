@@ -10,6 +10,7 @@ This project is a simulated e-commerce console app designed to mirror the functi
 - You can choose from the list of avaible products and then when you are done shopping, it will display your choice of product(s), prices for those products, and the total you are expected to pay.
 - if you are done shopping, you will be asked to make payments. Depending on whether or not the payment is succesful, you will get a message saying:
   > "Payment successful! Thank you for shopping with AromeUkpoju's app." or "Thank you for considering AromeUkpoju's app. Feel free to return anytime!"
+* Functionalities pending.
 
 ### Installation.
 
