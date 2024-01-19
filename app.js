@@ -18,6 +18,26 @@ const items = [
   { name: "hp envy", price: 549.99 },
 ];
 
+function animateText(text, delay = 100) {
+  return new Promise((resolve) => {
+    let index = 0;
+
+    function printChar() {
+      process.stdout.write(text[index]);
+      index++;
+
+      if (index < text.length) {
+        setTimeout(printChar, delay);
+      } else {
+        process.stdout.write("\n"); // Move to the next line after animation
+        resolve();
+      }
+    }
+
+    printChar();
+  });
+}
+
 function displayItems(items) {
   items.forEach((item, index) => {
     console.log(`${index + 1}. ${item.name} - $${item.price.toFixed(2)}`);
@@ -45,7 +65,8 @@ function getGreeting() {
 }
 
 async function main() {
-  console.log("***Welcome to AU's shopping App***");
+  await animateText("***Welcome to AU's shopping App***");
+
   const userName = await askQuestion("Please enter your name here ==> ");
 
   const greeting = getGreeting();
