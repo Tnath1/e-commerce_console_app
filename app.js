@@ -22,7 +22,7 @@ const items = [
 
 // Function to display the list of items
 function displayItems() {
-  console.log("Products in stock:");
+  console.log("Our vailable products are:");
   items.forEach((item, index) => {
     console.log(`${index + 1}. ${item.name} - $${item.price.toFixed(2)}`);
   });
@@ -52,13 +52,13 @@ function getGreeting() {
 
 async function main() {
   // Prompt the user for their name
-  console.log("Welcome to AU's shopping App");
-  const userName = await askQuestion("Please enter your name? ");
+  console.log("***Welcome to AU's shopping App***");
+  const userName = await askQuestion("Please enter your name here ==> ");
 
   // Display greeting based on the current time
   const greeting = getGreeting();
   console.log(`\x1b[31m${greeting}, ${userName}!`);
-  console.log(`\x1b[36mWelcome to AromeUkpoju's shopping app.`);
+  // console.log(`\x1b[36mWelcome to AromeUkpoju's shopping app.`);
 
   let selectedItems = [];
   let total = 0;
@@ -69,7 +69,7 @@ async function main() {
 
     // Ask the user to select items
     const choices = await askQuestion(
-      "Select from our available products (If selecting more than 1 product, enter product numbers separated by comma.): "
+      "Select from our available products (If buying more than 1 product, enter product numbers separated by comma.): "
     );
 
     // Convert the comma-separated string to an array of item numbers
@@ -94,6 +94,12 @@ async function main() {
     selectedItems = selectedItems.concat(
       itemNumbers.map((itemNumber) => items[itemNumber - 1])
     );
+    console.log("Products available in cart:");
+
+    selectedItems.forEach((item, index) => {
+      console.log(`${index + 1}. ${item.name} - $${item.price.toFixed(2)}`);
+      total += item.price; // Add the item's price to the total
+    });
 
     // Ask if the user wants to continue shopping
     const continueShopping = await askQuestion(
@@ -106,7 +112,7 @@ async function main() {
   }
 
   // Display the selected items
-  console.log("\nProducts added to cart:");
+  console.log("\nProducts available in cart:");
   selectedItems.forEach((item, index) => {
     console.log(`${index + 1}. ${item.name} - $${item.price.toFixed(2)}`);
     total += item.price; // Add the item's price to the total
@@ -125,11 +131,11 @@ async function main() {
     console.log(
       `\nPayment of $${total.toFixed(
         2
-      )} is successful! Thank you for shopping with AromeUkpoju's app.`
+      )} is successful! Thank you for shopping with AU's app.`
     );
   } else {
     console.log(
-      "\nThank you for considering AromeUkpoju's app. Feel free to return anytime!"
+      "\nThank you for considering AU's app. Feel free to return anytime!"
     );
   }
 
