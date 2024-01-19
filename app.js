@@ -17,6 +17,7 @@ const items = [
   { name: "iphone Xs", price: 549.99 },
   { name: "hp elitebook", price: 549.99 },
   { name: "hp envy", price: 549.99 },
+  // { name: "Go back to previous menu" },
 ];
 
 // Function to display the list of items
@@ -51,7 +52,8 @@ function getGreeting() {
 
 async function main() {
   // Prompt the user for their name
-  const userName = await askQuestion("What is your name? ");
+  console.log("Welcome to AU's shopping App");
+  const userName = await askQuestion("Please enter your name? ");
 
   // Display greeting based on the current time
   const greeting = getGreeting();
@@ -121,7 +123,9 @@ async function main() {
   if (paymentConfirmation.toLowerCase() === "yes") {
     // For demonstration purposes, assume payment is successful
     console.log(
-      "\nPayment successful! Thank you for shopping with AromeUkpoju's app."
+      `\nPayment of $${total.toFixed(
+        2
+      )} is successful! Thank you for shopping with AromeUkpoju's app.`
     );
   } else {
     console.log(
