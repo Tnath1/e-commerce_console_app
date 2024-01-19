@@ -5,7 +5,6 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-// Define a list of items and their prices
 const items = [
   { name: "T.shirt", price: 10.99 },
   { name: "Jean Trouser", price: 20.49 },
@@ -17,18 +16,14 @@ const items = [
   { name: "iphone Xs", price: 549.99 },
   { name: "hp elitebook", price: 549.99 },
   { name: "hp envy", price: 549.99 },
-  // { name: "Go back to previous menu" },
 ];
 
-// Function to display the list of items
-function displayItems() {
-  console.log("Our vailable products are:");
+function displayItems(items) {
   items.forEach((item, index) => {
     console.log(`${index + 1}. ${item.name} - $${item.price.toFixed(2)}`);
   });
 }
 
-// Function to prompt the user for input
 function askQuestion(question) {
   return new Promise((resolve) => {
     rl.question(question, (answer) => {
@@ -37,7 +32,6 @@ function askQuestion(question) {
   });
 }
 
-// Function to get the greeting based on the current time
 function getGreeting() {
   const hour = new Date().getHours();
 
@@ -51,33 +45,26 @@ function getGreeting() {
 }
 
 async function main() {
-  // Prompt the user for their name
   console.log("***Welcome to AU's shopping App***");
   const userName = await askQuestion("Please enter your name here ==> ");
 
-  // Display greeting based on the current time
   const greeting = getGreeting();
   console.log(`\x1b[31m${greeting}, ${userName}!`);
-  // console.log(`\x1b[36mWelcome to AromeUkpoju's shopping app.`);
 
   let selectedItems = [];
   let total = 0;
 
   while (true) {
-    // Display the list of items
-    displayItems();
+    displayItems(items);
 
-    // Ask the user to select items
     const choices = await askQuestion(
       "Select from our available products (If buying more than 1 product, enter product numbers separated by comma.): "
     );
 
-    // Convert the comma-separated string to an array of item numbers
     const itemNumbers = choices
       .split(",")
       .map((choice) => parseInt(choice.trim()));
 
-    // Validate the choices
     const invalidChoice = itemNumbers.some(
       (itemNumber) =>
         isNaN(itemNumber) || itemNumber < 1 || itemNumber > items.length
@@ -87,47 +74,72 @@ async function main() {
       console.log(
         "Invalid selection, please choose from our list of available products"
       );
-      continue; // Restart the loop
+      continue;
     }
 
-    // Add the selected items to the list
     selectedItems = selectedItems.concat(
       itemNumbers.map((itemNumber) => items[itemNumber - 1])
     );
+
     console.log("Products available in cart:");
 
     selectedItems.forEach((item, index) => {
       console.log(`${index + 1}. ${item.name} - $${item.price.toFixed(2)}`);
-      total += item.price; // Add the item's price to the total
+      total += item.price;
     });
 
-    // Ask if the user wants to continue shopping
+    const removeItems = await askQuestion(
+      "Do you want to remove items from your cart? (yes/no): "
+    );
+
+    if (removeItems.toLowerCase() === "yes") {
+      console.log("\nProducts available in cart:");
+      selectedItems.forEach((item, index) => {
+        console.log(`${index + 1}. ${item.name} - $${item.price.toFixed(2)}`);
+      });
+
+      const itemsToRemove = await askQuestion(
+        "Enter the numbers of the items to remove (comma-separated): "
+      );
+
+      const itemsToRemoveNumbers = itemsToRemove
+        .split(",")
+        .map((itemNumber) => parseInt(itemNumber.trim()));
+
+      selectedItems = selectedItems.filter(
+        (item, index) => !itemsToRemoveNumbers.includes(index + 1)
+      );
+
+      console.log("Items removed from the cart.");
+
+      console.log("\nUpdated products available in cart:");
+      selectedItems.forEach((item, index) => {
+        console.log(`${index + 1}. ${item.name} - $${item.price.toFixed(2)}`);
+      });
+    }
+
     const continueShopping = await askQuestion(
       "Are you done shopping? (yes/no): "
     );
 
     if (continueShopping.toLowerCase() !== "no") {
-      break; // Exit the loop if the user is done shopping
+      break;
     }
   }
 
-  // Display the selected items
   console.log("\nProducts available in cart:");
   selectedItems.forEach((item, index) => {
     console.log(`${index + 1}. ${item.name} - $${item.price.toFixed(2)}`);
-    total += item.price; // Add the item's price to the total
+    total += item.price;
   });
 
-  // Display the total
   console.log(`\nYour total cost is: $${total.toFixed(2)}`);
 
-  // Ask for payment
   const paymentConfirmation = await askQuestion(
     "Would you like to make the payment now? (yes/no): "
   );
 
   if (paymentConfirmation.toLowerCase() === "yes") {
-    // For demonstration purposes, assume payment is successful
     console.log(
       `\nPayment of $${total.toFixed(
         2
@@ -139,9 +151,7 @@ async function main() {
     );
   }
 
-  // Close the readline interface
   rl.close();
 }
 
-// Run the main function
 main();
